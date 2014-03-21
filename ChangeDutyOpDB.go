@@ -15,11 +15,11 @@ import (
 // Global map to map Last Name with username.
 //
 var userToDutyOp = map[string]string{
-	"Last": "First",
-	"Last": "First",
-	"Last": "First",
-	"Last": "First",
-	"Last": "First",
+	"Last" : "username",
+	"Last" : "username",
+	"Last" : "username",
+	"Last" : "username",
+	"Last" : "username",
 }
 
 //
@@ -126,6 +126,15 @@ func writeContacts(lines []string, path string) error {
 	return w.Flush()
 }
 
+func restartNagios() {
+  cmd := exec.Command ("/etc/init.d/nagios", "restart")
+  err := cmd.Start()
+  if err != nil {
+    log.Fatal(err)
+    err = cmd.Wait()
+    log.Printf ("Command finished with error: %v", err)
+}
+
 //
 // Main func()
 //
@@ -159,7 +168,7 @@ func main() {
 		log.Fatalf("writeLines %s", err)
 	}
 
-	// Need to add os.Exec command to run nagios restart //
+  restartNagios()
 
 	fmt.Printf("Duty Operator changed to %s %s\n", fname, lname)
 }
