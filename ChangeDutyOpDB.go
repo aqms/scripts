@@ -159,5 +159,7 @@ func main() {
 		log.Fatalf("writeLines %s", err)
 	}
 
+	// Need to add os.Exec command to run nagios restart //
+
 	fmt.Printf("Duty Operator changed to %s %s\n", fname, lname)
 }
